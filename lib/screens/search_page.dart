@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:weather_app/model/providers/weather_provider.dart';
 import 'package:weather_app/model/weather_model.dart';
 import 'package:weather_app/services/weather_service.dart';
 
 class SearchPage extends StatelessWidget {
-  SearchPage(this.updateUi, {super.key});
+  SearchPage( {super.key});
 
-  VoidCallback updateUi;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,8 +23,9 @@ class SearchPage extends StatelessWidget {
                 hintText: 'Enter a City',
                 suffixIcon: Icon(Icons.search_sharp)),
             onSubmitted: (input) async {
-              weatherData2 = await WeatherService().getWeather(input);
-              updateUi();
+              WeatherModel weatherData = await WeatherService().getWeather(input);
+              Provider.of<WeatherProvider>(context,listen: false).weatherData= weatherData;
+
               Navigator.pop(context);
             },
           ),
@@ -32,4 +35,4 @@ class SearchPage extends StatelessWidget {
   }
 }
 
-WeatherModel? weatherData2;
+

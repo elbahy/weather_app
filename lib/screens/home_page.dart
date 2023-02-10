@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:weather_app/model/providers/weather_provider.dart';
 import 'package:weather_app/model/weather_model.dart';
 import 'package:weather_app/screens/search_page.dart';
 
@@ -14,8 +16,10 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
+  WeatherModel? weatherData;
   @override
   Widget build(BuildContext context) {
+    weatherData = Provider.of<WeatherProvider>(context).weatherData;
     return Scaffold(
       appBar: AppBar(
         title: Text('Weather App'),
@@ -26,13 +30,13 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.search),
               onPressed: () =>
                   Navigator.push(context, MaterialPageRoute(builder: (crx) {
-                return SearchPage(updateUi);
+                return SearchPage();
               })),
             ),
           ),
         ],
       ),
-      body: weatherData2 != null
+      body: weatherData != null
           ? Container(
               color: Colors.deepOrange,
               child: Column(
@@ -43,22 +47,22 @@ class _HomePageState extends State<HomePage> {
                     child: Row(
                       children: [
                         Icon(Icons.cloud_queue, color: Colors.white, size: 32),
-                        Text('${weatherData2!.cloud}%'),
+                        Text('${weatherData!.cloud}%'),
                         Spacer(flex: 1),
                         Icon(Icons.wind_power_outlined,
                             color: Colors.white, size: 32),
-                        Text('${weatherData2!.wind} KM/S'),
+                        Text('${weatherData!.wind} KM/S'),
                         Spacer(flex: 1),
                         Icon(Icons.water_drop_outlined,
                             color: Colors.white, size: 32),
-                        Text('${weatherData2!.humidity}'),
+                        Text('${weatherData!.humidity}'),
                       ],
                     ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('${weatherData2!.temp.toInt()}',
+                      Text('${weatherData!.temp.toInt()}',
                           style: TextStyle(fontSize: 145, color: Colors.white)),
                       Column(
                         children: [
@@ -68,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                           Row(
                             children: [
                               Icon(Icons.arrow_upward, color: Colors.white),
-                              Text('${weatherData2!.maxTemp.toInt()}',
+                              Text('${weatherData!.maxTemp.toInt()}',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 24))
                             ],
@@ -76,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                           Row(
                             children: [
                               Icon(Icons.arrow_downward, color: Colors.white),
-                              Text('${weatherData2!.minTemp.toInt()}',
+                              Text('${weatherData!.minTemp.toInt()}',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 24))
                             ],
@@ -86,17 +90,17 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   Text(
-                      '${weatherData2!.location}, ${weatherData2!.region}, ${weatherData2!.country}',
+                      '${weatherData!.location}, ${weatherData!.region}, ${weatherData!.country}',
                       style: TextStyle(
                           fontSize: 32,
                           color: Colors.white,
                           fontWeight: FontWeight.bold)),
-                  Text('${weatherData2!.lastUpdate}',
+                  Text('${weatherData!.lastUpdate}',
                       style: TextStyle(fontSize: 18, color: Colors.white)),
                   Spacer(flex: 1),
-                  Text('${weatherData2!.condition}',
+                  Text('${weatherData!.condition}',
                       style: TextStyle(fontSize: 32, color: Colors.white)),
-                  Image.network('https:${weatherData2!.icon}'),
+                  Image.network('https:${weatherData!.icon}'),
                   Spacer(
                     flex: 2,
                   )

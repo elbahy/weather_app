@@ -1,6 +1,3 @@
-import 'package:flutter/foundation.dart';
-import 'package:weather_app/services/weather_service.dart';
-
 class WeatherModel {
   final String location;
   final String region;
