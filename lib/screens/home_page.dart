@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                           Row(
                             children: [
                               Icon(Icons.arrow_upward, color: Colors.white),
-                              Text('${weatherData!.maxTemp.toInt()}',
+                              Text('${weatherData!.maxTemp.toInt().toString().padLeft(2, '0')}',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 24))
                             ],
@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                           Row(
                             children: [
                               Icon(Icons.arrow_downward, color: Colors.white),
-                              Text('${weatherData!.minTemp.toInt()}',
+                              Text('${weatherData!.minTemp.toInt().toString().padLeft(2, '0')}',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 24))
                             ],

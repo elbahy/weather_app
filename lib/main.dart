@@ -5,7 +5,10 @@ import 'package:weather_app/model/weather_model.dart';
 import 'package:weather_app/screens/home_page.dart';
 
 void main() async {
-  runApp(WeatherApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => WeatherProvider(),
+    child: WeatherApp(),
+  ));
 }
 
 class WeatherApp extends StatelessWidget {
@@ -13,12 +16,9 @@ class WeatherApp extends StatelessWidget {
   WeatherModel? weather;
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => WeatherProvider(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: HomePage(),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
     );
   }
 }
